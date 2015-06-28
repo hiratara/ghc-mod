@@ -63,8 +63,8 @@
    (t cpro)))
 
 (defun ghc-start-process (name buf)
-  (let* ((opts (append '("-b" "\n" "-l") (ghc-make-ghc-options)))
-	 (pro (apply 'start-file-process name buf ghc-interactive-command opts)))
+  (let* ((opts (append (list "exec" "--" ghc-interactive-command "-b" "\n" "-l") (ghc-make-ghc-options)))
+	 (pro (apply 'start-file-process name buf "stack" opts)))
     (set-process-filter pro 'ghc-process-filter)
     (set-process-sentinel pro 'ghc-process-sentinel)
     (set-process-query-on-exit-flag pro nil)

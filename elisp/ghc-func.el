@@ -221,7 +221,7 @@
      ,@body))
 
 (defun ghc-call-process (cmd x y z &rest args)
-  (apply 'call-process cmd x y z args)
+  (apply 'call-process "stack" x y z (append (list "exec" "--" cmd) args))
   (when ghc-debug
     (let ((cbuf (current-buffer)))
       (ghc-with-debug-buffer
